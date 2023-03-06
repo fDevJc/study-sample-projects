@@ -3,13 +3,17 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     show-sql: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/sample
     username: sample-user
     password: 1234
+    slaves:
+      slave-1:
+        name: slave-1
+        url: jdbc:mysql://127.0.0.1:3307/sample
 logging:
   level:
     org:

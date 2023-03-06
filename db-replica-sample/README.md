@@ -75,7 +75,11 @@
    USE sample;
    
    #sample table 생성
-   CREATE TABLE samples (text varchar(20));
+   CREATE TABLE samples (
+   id bigint NOT NULL AUTO_INCREMENT,
+   name varchar(20) DEFAULT NULL,
+   PRIMARY KEY(id)
+   );
    
    #sample data 생성
    INSERT INTO samples VALUES('test record');
@@ -113,7 +117,7 @@
    SOURCE_USER='sample-user', \
    SOURCE_PASSWORD='1234', \
    SOURCE_LOG_FILE='mysql-bin.000001', \
-   SOURCE_LOG_POS=934,\
+   SOURCE_LOG_POS=157,\
    SOURCE_SSL=1;
    # START
    START REPLICA;

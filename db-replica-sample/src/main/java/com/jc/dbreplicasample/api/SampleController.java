@@ -2,6 +2,7 @@ package com.jc.dbreplicasample.api;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,11 @@ public class SampleController {
 	@PostMapping("/samples")
 	public ResponseEntity addSample(@RequestBody RequestAddSampleDto requestAddSampleDto) {
 		sampleService.addSample(requestAddSampleDto);
-		return ResponseEntity.status(HttpStatus.OK).build();
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+
+	@GetMapping("/samples")
+	public ResponseEntity findAllSamples() {
+		return ResponseEntity.ok(sampleService.findAllSamples());
 	}
 }
