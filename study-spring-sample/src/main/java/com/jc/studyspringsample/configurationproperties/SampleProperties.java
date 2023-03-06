@@ -3,7 +3,6 @@ package com.jc.studyspringsample.configurationproperties;
 import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,7 +13,6 @@ public class SampleProperties {
 	private String username;
 	private String password;
 
-	@NestedConfigurationProperty
 	private Map<String, Slave> slaves;
 
 	public String getDriverClassName() {
@@ -56,7 +54,6 @@ public class SampleProperties {
 	public void setSlaves(Map<String, Slave> slaves) {
 		this.slaves = slaves;
 	}
-
 
 	public static class Slave {
 		private String name;
