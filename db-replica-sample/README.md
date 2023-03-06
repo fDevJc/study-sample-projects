@@ -1,11 +1,13 @@
 # MySQL Replica sample
 ### 목표
-- 쿼리 요청은 Master에서 처리
-- 커맨드 요청은 Slave에서 처리
+- 커맨드 요청은 Master에서 처리
+- 쿼리 요청은 Slave에서 처리
 ### 환경
 - docker
 - mysql
+
 ## 실습순서
+
 ### 1. MySQL DB Master, Slave 구조만들기
 1. docker mysql image 설치
    ```
@@ -64,6 +66,7 @@
    mysql -u root -p
    mysql> SHOW MASTER STATUS\G
    ```
+   - --link 옵션은 컨테이너 이름을 통해 host주소를 사용하기 위한 옵션
 6. slave, master connect
    ```shell
    #============mysql-master============
@@ -105,13 +108,13 @@
    
    #연결
    CHANGE REPLICATION SOURCE TO \
-	SOURCE_HOST='mysql-master', \
-	SOURCE_PORT=3306, \
-	SOURCE_USER='sample-user', \
-	SOURCE_PASSWORD='1234', \
-	SOURCE_LOG_FILE='mysql-bin.000001', \
-	SOURCE_LOG_POS=934,\
-    SOURCE_SSL=1;
+   SOURCE_HOST='mysql-master', \
+   SOURCE_PORT=3306, \
+   SOURCE_USER='sample-user', \
+   SOURCE_PASSWORD='1234', \
+   SOURCE_LOG_FILE='mysql-bin.000001', \
+   SOURCE_LOG_POS=934,\
+   SOURCE_SSL=1;
    # START
    START REPLICA;
    ```
