@@ -16,7 +16,7 @@ public class ReplDataSourceProperties {
 	private String url;
 	private String username;
 	private String password;
-	private final Map<String, Slave> slave = new HashMap<>();
+	private final Map<String, Slave> slaves = new HashMap<>();
 
 	@Getter
 	@Setter

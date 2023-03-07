@@ -34,8 +34,8 @@
    mysql -u root -p
    mysql> SHOW MASTER STATUS\G
    ```
-   - log-bin : Binary log 설정 파일 세팅
-   - server-id : 서버를 식별하기 위한 고유 ID
+    - log-bin : Binary log 설정 파일 세팅
+    - server-id : 서버를 식별하기 위한 고유 ID
 
 4. master DB setting
    ```shell
@@ -66,7 +66,7 @@
    mysql -u root -p
    mysql> SHOW MASTER STATUS\G
    ```
-   - --link 옵션은 컨테이너 이름을 통해 host주소를 사용하기 위한 옵션
+    - --link 옵션은 컨테이너 이름을 통해 host주소를 사용하기 위한 옵션
 6. slave, master connect
    ```shell
    #============mysql-master============
@@ -122,10 +122,10 @@
    # START
    START REPLICA;
    ```
-   - stop replica;
-     - replica 중지
-   - reset replica all;
-     - replica 설정 초기화
+    - stop replica;
+        - replica 중지
+    - reset replica all;
+        - replica 설정 초기화
 
 > 🔍 POS가 다를 경우 master 연결이 안됨 !!!!!!!!!!!!!!!
 
@@ -142,3 +142,23 @@ SELECT * FROM samples;
 SELECT * FROM samples; #데이터가 추가되어있다!!!!
 ```
 ### 2. Application에서 CUD작업은 Master, Q작업은 Slave 세팅
+- AbstractPlatformTransactionManager.getTransaction()
+   - AbstractPlatformTransactionManager.startTransaction()
+      - JpaTransactionManager.doBegin()
+         - HibernateJpaDialect.beginTransaction()
+
+## Trouble Shooting
+### 읽기전용 설정에 따라 슬레이브 DB를 조회하는 것이 아닌 마스터 DB 조회 
+- [원인]
+  - @Transactional(readOnly = true) 옵션을 줬지만 boolean isReadOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly(); 의 값이 항상 false
+  - TransactionManager
+    ```
+    doBegin(transaction, definition); //datasource 가져옴
+    prepareSynchronization(status, definition); //readonly값 반영
+    ```
+  - readOnly값을 확인하지 않고 datasource를 먼저 가지고 옴
+- [해결]
+  - LazyConnectionDataSourceProxy를 사용하여 쿼리가 실행될 때 DataSource를 가져오도록 구현
+
+- ## 참고
+- https://velog.io/@max9106/DB-Spring-Replication
