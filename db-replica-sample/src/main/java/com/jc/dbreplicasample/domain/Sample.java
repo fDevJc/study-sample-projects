@@ -29,4 +29,8 @@ public class Sample {
 	public String getName() {
 		return name;
 	}
+
+	public void changeName(String name) {
+		this.name = name;
+	}
 }

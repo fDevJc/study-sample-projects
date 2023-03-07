@@ -16,8 +16,11 @@ public class ReplRoutingDataSource extends AbstractRoutingDataSource {
 	protected Object determineCurrentLookupKey() {
 		boolean isReadOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
 		if (isReadOnly) {
-			return slaves.getSlaveName();
+			String slaveName = slaves.getSlaveName();
+			System.out.println("DataSource = " + slaveName);
+			return slaveName;
 		}
+		System.out.println("DataSource = master");
 		return "master";
 	}
 

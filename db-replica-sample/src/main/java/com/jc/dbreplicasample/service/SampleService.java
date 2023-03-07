@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jc.dbreplicasample.domain.Sample;
 import com.jc.dbreplicasample.dto.RequestAddSampleDto;
+import com.jc.dbreplicasample.dto.RequestModifySampleDto;
 import com.jc.dbreplicasample.dto.ResponseSampleDto;
 import com.jc.dbreplicasample.repository.SampleRepository;
 
@@ -27,10 +28,14 @@ public class SampleService {
 
 	@Transactional(readOnly = true)
 	public List<ResponseSampleDto> findAllSamples() {
-		List<Sample> all = sampleRepository.findAll();
-		System.out.println("all.size() = " + all.size());
-		return all.stream()
+		return sampleRepository.findAll().stream()
 			.map(ResponseSampleDto::of)
 			.collect(Collectors.toList());
+	}
+
+	@Transactional
+	public void modifySample(Long sampleId, RequestModifySampleDto requestModifySampleDto) {
+		Sample sample = sampleRepository.findById(sampleId).orElseThrow();
+		sample.changeName(requestModifySampleDto.getName());
 	}
 }
