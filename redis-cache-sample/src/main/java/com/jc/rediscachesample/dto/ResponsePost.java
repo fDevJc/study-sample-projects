@@ -1,11 +1,17 @@
 package com.jc.rediscachesample.dto;
 
+import java.io.Serializable;
+
 import com.jc.rediscachesample.domain.Post;
 
-public class ResponsePost {
+public class ResponsePost implements Serializable {
 	private Long id;
 	private String title;
 	private String content;
+
+	public ResponsePost() {
+
+	}
 
 	private ResponsePost(Long id, String title, String content) {
 		this.id = id;

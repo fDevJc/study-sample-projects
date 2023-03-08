@@ -128,3 +128,66 @@ running (0m55.4s), 000/400 VUs, 7478 complete and 0 interrupted iterations
 default ✓ [======================================] 000/400 VUs  55s
 ERRO[0056] thresholds on metrics 'http_req_duration' have been breached
 ```
+
+### 레디스 캐시 적용 후
+```shell
+  execution: local
+     script: load.js
+     output: -
+
+  scenarios: (100.00%) 1 scenario, 100 max VUs, 55s max duration (incl. graceful stop):
+           * default: Up to 100 looping VUs for 25s over 5 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+
+     data_received..................: 222 MB 8.9 MB/s
+     data_sent......................: 26 MB  1.0 MB/s
+     http_req_blocked...............: avg=2.15µs  min=0s       med=0s     max=9.51ms  p(90)=1µs    p(95)=1µs
+     http_req_connecting............: avg=1.3µs   min=0s       med=0s     max=4.57ms  p(90)=0s     p(95)=0s
+   ✓ http_req_duration..............: avg=3.37ms  min=298µs    med=3.14ms max=48.53ms p(90)=5.86ms p(95)=7.01ms
+       { expected_response:true }...: avg=3.37ms  min=298µs    med=3.14ms max=48.53ms p(90)=5.86ms p(95)=7.01ms
+     http_req_failed................: 0.00%  ✓ 0           ✗ 301756
+     http_req_receiving.............: avg=16.88µs min=3µs      med=9µs    max=15.31ms p(90)=31µs   p(95)=48µs
+     http_req_sending...............: avg=2.78µs  min=1µs      med=2µs    max=1.89ms  p(90)=4µs    p(95)=7µs
+     http_req_tls_handshaking.......: avg=0s      min=0s       med=0s     max=0s      p(90)=0s     p(95)=0s
+     http_req_waiting...............: avg=3.35ms  min=280µs    med=3.12ms max=47.68ms p(90)=5.84ms p(95)=6.99ms
+     http_reqs......................: 301756 12070.01936/s
+     iteration_duration.............: avg=3.39ms  min=307.62µs med=3.16ms max=51.04ms p(90)=5.88ms p(95)=7.03ms
+     iterations.....................: 301756 12070.01936/s
+     vus............................: 1      min=1         max=99
+     vus_max........................: 100    min=100       max=100
+
+
+running (25.0s), 000/100 VUs, 301756 complete and 0 interrupted iterations
+default ✓ [======================================] 000/100 VUs  25s
+```
+
+```shell
+  execution: local
+     script: stress.js
+     output: -
+
+  scenarios: (100.00%) 1 scenario, 400 max VUs, 1m25s max duration (incl. graceful stop):
+           * default: Up to 400 looping VUs for 55s over 7 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+
+     data_received..................: 637 MB 12 MB/s
+     data_sent......................: 74 MB  1.3 MB/s
+     http_req_blocked...............: avg=2.12µs  min=0s       med=0s      max=4.36ms   p(90)=1µs     p(95)=1µs
+     http_req_connecting............: avg=1.37µs  min=0s       med=0s      max=4.33ms   p(90)=0s      p(95)=0s
+   ✓ http_req_duration..............: avg=14.68ms min=319µs    med=14.41ms max=206.02ms p(90)=26.89ms p(95)=30.48ms
+       { expected_response:true }...: avg=14.68ms min=319µs    med=14.41ms max=206.02ms p(90)=26.89ms p(95)=30.48ms
+     http_req_failed................: 0.00%  ✓ 0            ✗ 867398
+     http_req_receiving.............: avg=33.1µs  min=3µs      med=9µs     max=189.23ms p(90)=33µs    p(95)=57µs
+     http_req_sending...............: avg=2.71µs  min=1µs      med=2µs     max=985µs    p(90)=4µs     p(95)=6µs
+     http_req_tls_handshaking.......: avg=0s      min=0s       med=0s      max=0s       p(90)=0s      p(95)=0s
+     http_req_waiting...............: avg=14.64ms min=309µs    med=14.37ms max=206.01ms p(90)=26.85ms p(95)=30.44ms
+     http_reqs......................: 867398 15770.543266/s
+     iteration_duration.............: avg=14.7ms  min=327.87µs med=14.42ms max=206.04ms p(90)=26.9ms  p(95)=30.5ms
+     iterations.....................: 867398 15770.543266/s
+     vus............................: 52     min=10         max=399
+     vus_max........................: 400    min=400        max=400
+
+
+running (0m55.0s), 000/400 VUs, 867398 complete and 0 interrupted iterations
+default ✓ [======================================] 000/400 VUs  55s
+```

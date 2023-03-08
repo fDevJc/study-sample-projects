@@ -1,13 +1,23 @@
 package com.jc.rediscachesample.config;
 
+import static org.springframework.data.redis.cache.RedisCacheManager.*;
+
+import java.time.Duration;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+@EnableCaching
 @Configuration
 public class RedisConfig {
 	@Value("${spring.redis.host}")
@@ -43,11 +53,31 @@ public class RedisConfig {
 		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(redisConnectionFactory());
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
-		// redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
 
 		redisTemplate.setHashKeySerializer(new StringRedisSerializer());
 		redisTemplate.setHashValueSerializer(new StringRedisSerializer());
 
 		return redisTemplate;
+	}
+
+	/*
+		CacheManager
+		스프링에서 기본적으로 지원하는 캐시저장소는 ConcurrentHashMap
+		그외 캐시저장소를 이용하기위해서는 캐시매니저를 Bean으로 등록
+		- EhCacheCacheManager, CaffeineCacheManager, RedisCacheManager 등등
+	 */
+	@Bean
+	public CacheManager redisCacheManager() {
+		return RedisCacheManagerBuilder.fromConnectionFactory(redisConnectionFactory())
+			.cacheDefaults(redisCacheConfiguration())
+			.build();
+	}
+
+	private RedisCacheConfiguration redisCacheConfiguration() {
+		return RedisCacheConfiguration.defaultCacheConfig()
+			.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+			.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
+			// .entryTtl(Duration.ofSeconds(10L));	//test를 위해 10초의 TTL
+			.entryTtl(Duration.ofHours(1L));
 	}
 }
