@@ -2,6 +2,8 @@ package com.jc.rediscachesample.api;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +30,9 @@ public class PostController {
 	}
 
 	@GetMapping("/posts")
-	public ResponseEntity<List<ResponsePost>> findAllPosts() {
-		return ResponseEntity.ok(postService.findAllPosts());
+	public ResponseEntity<List<ResponsePost>> findAllPosts(
+		@PageableDefault Pageable pageable
+	) {
+		return ResponseEntity.ok(postService.findAllPosts(pageable));
 	}
 }

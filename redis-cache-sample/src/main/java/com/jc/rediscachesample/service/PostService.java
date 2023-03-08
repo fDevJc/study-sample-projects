@@ -3,6 +3,7 @@ package com.jc.rediscachesample.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.jc.rediscachesample.domain.Post;
@@ -23,8 +24,8 @@ public class PostService {
 		postRepository.save(post);
 	}
 
-	public List<ResponsePost> findAllPosts() {
-		return postRepository.findAll()
+	public List<ResponsePost> findAllPosts(Pageable pageable) {
+		return postRepository.findAll(pageable)
 			.stream()
 			.map(post -> ResponsePost.of(post))
 			.collect(Collectors.toList());
