@@ -45,7 +45,7 @@ brew install k6
 6. 레디스 적용 후 부하테스트
 
 ## 결론
-[k6결과정리](/k6-result/result-67577.md)
+[k6결과정리](https://github.com/fDevJc/study-sample-projects/blob/master/redis-cache-sample/k6-result/result-67577.md)
 - 복잡한 비즈니스 로직이 없는 단순 조회 예제라서 당연한 결과이지만 조회성능이 엄청나게 좋아짐
 - 실무에서 캐시를 적용할땐 해당 데이터의 변화여부가 중요하기때문에 어디에 캐시를 적용할지 고민 해봐야함
 
