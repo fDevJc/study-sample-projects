@@ -24,10 +24,13 @@ mysql -u root -p
 CREATE DATABASE redis_sample;
 
 # redis image pull
-docker pull redis:alpine
+docker pull redis
+docker run -d -p 6379:6379 --name redis redis
+# redis cli 접속
+docker exec -it redis redis-cli
 
 # k6 image pull
-#docker pull grafana/k6
+# docker pull grafana/k6
 # m1 칩 호환성 문제로 맥에 k6 바로 설치
 brew install k6
 ```
@@ -37,4 +40,12 @@ brew install k6
 - 조회, 작성 API
 
 3. k6 스크립트 작성
+- load.js, stress.js 작성
+
+4. 기본 설정 부하테스트
+
+5. 페이징 처리 후 부하테스트
+- DefaultPagable 사용하여 테스트
+
+6. 레디스 적용 후 부하테스트
 - 
