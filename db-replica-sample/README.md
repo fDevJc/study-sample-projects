@@ -142,10 +142,15 @@ SELECT * FROM samples;
 SELECT * FROM samples; #데이터가 추가되어있다!!!!
 ```
 ### 2. Application에서 CUD작업은 Master, Q작업은 Slave 세팅
-- AbstractPlatformTransactionManager.getTransaction()
-   - AbstractPlatformTransactionManager.startTransaction()
-      - JpaTransactionManager.doBegin()
-         - HibernateJpaDialect.beginTransaction()
+- 기본흐름
+    - AbstractPlatformTransactionManager.getTransaction()
+        - AbstractPlatformTransactionManager.startTransaction()
+            - JpaTransactionManager.doBegin()
+                - HibernateJpaDialect.beginTransaction()
+
+- 주요 클래스
+  - LazyConnectionDataSourceProxy : JDBC Connection을 가지고 오는 시점까지 DataSource의 사용을 지연할 수 있는 WrapperClass.
+  - AbstractRoutingDataSource : DataSource를 커스텀하여 선택적으로 제공하는 추상클래스
 
 ## Trouble Shooting
 ### 읽기전용 설정에 따라 슬레이브 DB를 조회하는 것이 아닌 마스터 DB 조회 
