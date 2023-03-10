@@ -16,3 +16,9 @@
 ## 스프링부트
 
 ## 자바
+- 비동기
+  - ExecutorService : 비동기 작업 실행을 도와주는 인터페이스
+  - Future : 비동기 작업의 결과를 받을 수 있는 인터페이스
+  - FutureTask : Future의 경우 생성,실행이 동시에 FutureTask의 경우 생성,실행 분리
+  - CompletableFuture : Future의 한계점 해소를 위해 등장
+    - 작업 중첩, 콜백작업, 예외처리
