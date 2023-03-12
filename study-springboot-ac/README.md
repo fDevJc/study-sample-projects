@@ -19,21 +19,16 @@
 ```shell
 	@Bean
 	ApplicationRunner run(ConditionEvaluationReport report) {
-		return args -> {
-			System.out.println(report.getConditionAndOutcomesBySource()
-				.entrySet()
-				.stream()
-				.filter(con -> con.getValue().isFullMatch())
-				.map(con -> {
-					System.out.println(con.getKey());
-					con.getValue().forEach(c -> {
-						System.out.println("\t" + c.getOutcome());
-					});
-					System.out.println();
-					return con;
-				}).count());
-		};
+		return args -> System.out.println(report.getConditionAndOutcomesBySource()
+			.entrySet()
+			.stream()
+			.filter(con -> con.getValue().isFullMatch())
+			.peek(con -> {
+				System.out.println(con.getKey());
+				con.getValue().forEach(c -> System.out.println("\t" + c.getOutcome()));
+				System.out.println();
+			}).count());
 	}
 ```
 ## 주요 프레임워크 자동구성 공부
-- [Spring-Security](/docs/spring-secutiry-ac.md)
+- [Spring-Security](https://github.com/fDevJc/study-sample-projects/blob/master/study-springboot-ac/docs/spring-secutiry-ac.md)

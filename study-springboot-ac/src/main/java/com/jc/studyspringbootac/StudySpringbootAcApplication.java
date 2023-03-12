@@ -10,17 +10,15 @@ import org.springframework.context.annotation.Bean;
 public class StudySpringbootAcApplication {
 	@Bean
 	ApplicationRunner run(ConditionEvaluationReport report) {
-		return args -> {
-			System.out.println(report.getConditionAndOutcomesBySource()
-				.entrySet()
-				.stream()
-				.filter(con -> con.getValue().isFullMatch())
-				.peek(con -> {
-					System.out.println(con.getKey());
-					con.getValue().forEach(c -> System.out.println("\t" + c.getOutcome()));
-					System.out.println();
-				}).count());
-		};
+		return args -> System.out.println(report.getConditionAndOutcomesBySource()
+			.entrySet()
+			.stream()
+			.filter(con -> con.getValue().isFullMatch())
+			.peek(con -> {
+				System.out.println(con.getKey());
+				con.getValue().forEach(c -> System.out.println("\t" + c.getOutcome()));
+				System.out.println();
+			}).count());
 	}
 
 	public static void main(String[] args) {
