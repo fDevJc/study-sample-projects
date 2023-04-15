@@ -1,9 +1,9 @@
-package com.jc.controller;
+package com.jc.moduleapi.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jc.service.DemoService;
+import com.jc.moduleapi.service.DemoService;
 
 import lombok.RequiredArgsConstructor;
 

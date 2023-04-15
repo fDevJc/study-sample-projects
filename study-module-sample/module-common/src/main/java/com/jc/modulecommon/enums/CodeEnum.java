@@ -1,4 +1,4 @@
-package com.jc.enums;
+package com.jc.modulecommon.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
