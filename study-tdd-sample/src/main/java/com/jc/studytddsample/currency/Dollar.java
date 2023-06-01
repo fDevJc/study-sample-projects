@@ -1,14 +1,15 @@
 package com.jc.studytddsample.currency;
 
 public class Dollar {
-	public int amount = 10;
 
+	int amount;
 
-	public Dollar(int i) {
-
+	public Dollar(int amount) {
+		this.amount = amount;
 	}
 
-	public void times(int i) {
+	public void times(int multiplier) {
+		amount *= multiplier;
 
 	}
 }

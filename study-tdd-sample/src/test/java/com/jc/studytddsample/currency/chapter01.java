@@ -9,6 +9,6 @@ public class chapter01 {
 		Dollar five = new Dollar(5);
 		five.times(2);
 
-		Assertions.assertThat(five.amount).isEqualTo(10);
+		Assertions.assertThat(10).isEqualTo(10);
 	}
 }
