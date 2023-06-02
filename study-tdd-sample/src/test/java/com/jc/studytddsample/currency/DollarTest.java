@@ -2,7 +2,6 @@ package com.jc.studytddsample.currency;
 
 import static org.assertj.core.api.Assertions.*;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class DollarTest {
@@ -10,11 +9,8 @@ public class DollarTest {
 	void testMultiplication() throws Exception {
 		Dollar five = new Dollar(5);
 
-		Dollar result = five.times(2);
-		assertThat(result.amount).isEqualTo(10);
-
-		result = five.times(3);
-		assertThat(result.amount).isEqualTo(15);
+		assertThat(five.times(2)).isEqualTo(new Dollar(10));
+		assertThat(five.times(3)).isEqualTo(new Dollar(15));
 	}
 
 	@Test
