@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class FrancTest {
 	@Test
 	void testMultiplication() throws Exception {
-		Franc five = new Franc(5);
+		Money five = Money.franc(5);
 
 		assertThat(five.times(2)).isEqualTo(new Franc(10));
 		assertThat(five.times(3)).isEqualTo(new Franc(15));

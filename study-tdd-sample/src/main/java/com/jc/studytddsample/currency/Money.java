@@ -2,8 +2,18 @@ package com.jc.studytddsample.currency;
 
 import java.util.Objects;
 
-public class Money {
+public abstract class Money {
 	protected int amount;
+
+	abstract Money times(int multiplier);
+
+	public static Money franc(int amount) {
+		return new Franc(amount);
+	}
+
+	public static Money dollar(int amount) {
+		return new Dollar(amount);
+	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -19,4 +29,5 @@ public class Money {
 	public int hashCode() {
 		return Objects.hash(amount);
 	}
+
 }
