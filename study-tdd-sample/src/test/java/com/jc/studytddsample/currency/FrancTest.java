@@ -9,13 +9,13 @@ public class FrancTest {
 	void testMultiplication() throws Exception {
 		Money five = Money.franc(5);
 
-		assertThat(five.times(2)).isEqualTo(new Franc(10));
-		assertThat(five.times(3)).isEqualTo(new Franc(15));
+		assertThat(five.times(2)).isEqualTo(Money.franc(10));
+		assertThat(five.times(3)).isEqualTo(Money.franc(15));
 	}
 
 	@Test
 	void testEquals() throws Exception {
-		assertThat(new Franc(5).equals(new Franc(5))).isTrue();
-		assertThat(new Franc(5).equals(new Franc(6))).isFalse();
+		assertThat(Money.franc(5).equals(Money.franc(5))).isTrue();
+		assertThat(Money.franc(5).equals(Money.franc(6))).isFalse();
 	}
 }
