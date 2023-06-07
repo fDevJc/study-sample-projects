@@ -2,7 +2,7 @@ package com.jc.studytddsample.currency;
 
 import java.util.Objects;
 
-public abstract class Money {
+public class Money {
 	protected int amount;
 	protected String currency;
 
@@ -11,7 +11,9 @@ public abstract class Money {
 		this.currency = currency;
 	}
 
-	abstract Money times(int multiplier);
+	public Money times(int multiplier) {
+		return new Money(amount * multiplier, currency);
+	}
 
 	String currency() {
 		return this.currency;
@@ -29,14 +31,12 @@ public abstract class Money {
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
 		Money money = (Money)o;
-		return amount == money.amount;
+		return amount == money.amount && Objects.equals(currency, money.currency);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount);
+		return Objects.hash(amount, currency);
 	}
 }
