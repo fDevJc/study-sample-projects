@@ -13,6 +13,6 @@ public class CurrencyTest {
 
 	@Test
 	void testDifferentClassEquality() throws Exception {
-		assertThat(new Money(10, "CHF")).isEqualTo(new Franc(10, "CHF"));
+		assertThat(new Money(10, "USD")).isEqualTo(new Franc(10, "CHF"));
 	}
 }
