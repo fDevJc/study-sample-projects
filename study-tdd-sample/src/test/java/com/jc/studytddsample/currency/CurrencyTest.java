@@ -48,4 +48,17 @@ public class CurrencyTest {
 		Money result = bank.reduce(Money.dollar(1), "USD");
 		assertThat(result).isEqualTo(Money.dollar(1));
 	}
+
+	@Test
+	void testIdentityRate() throws Exception {
+		assertThat(new Bank().rate("USD", "USD")).isEqualTo(1);
+	}
+
+	@Test
+	void testReduceMoneyDifferentCurrency() throws Exception {
+		Bank bank = new Bank();
+		bank.addRate("CHF", "USD", 2);
+		Money result = bank.reduce(Money.franc(2), "USD");
+		assertThat(result).isEqualTo(Money.dollar(1));
+	}
 }
