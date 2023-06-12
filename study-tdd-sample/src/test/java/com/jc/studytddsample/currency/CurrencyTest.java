@@ -61,4 +61,16 @@ public class CurrencyTest {
 		Money result = bank.reduce(Money.franc(2), "USD");
 		assertThat(result).isEqualTo(Money.dollar(1));
 	}
+
+	@Test
+	void testMixedAddition() throws Exception {
+		Expression fiveDollar = Money.dollar(5);
+		Expression tenFranc = Money.franc(10);
+		Bank bank = new Bank();
+		bank.addRate("CHF", "USD", 2);
+
+		Money result = bank.reduce(fiveDollar.plus(tenFranc), "USD");
+
+		assertThat(result).isEqualTo(Money.dollar(10));
+	}
 }
