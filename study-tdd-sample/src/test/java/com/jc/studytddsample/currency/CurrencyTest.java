@@ -13,6 +13,15 @@ public class CurrencyTest {
 
 	@Test
 	void testDifferentClassEquality() throws Exception {
-		assertThat(new Money(10, "USD")).isEqualTo(new Franc(10, "CHF"));
+		assertThat(new Money(10, "USD")).isNotEqualTo(new Money(10, "CHF"));
+	}
+
+	@Test
+	void testSimpleAddition() throws Exception {
+		Money five = Money.dollar(5);
+		Expression sum = five.plus(five);
+		Bank bank = new Bank();
+		Money reduced = bank.reduce(sum, "USD");
+		assertThat(reduced).isEqualTo(Money.dollar(10));
 	}
 }
